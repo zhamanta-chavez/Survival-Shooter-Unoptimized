@@ -8,6 +8,8 @@ public class EnemyHealth : MonoBehaviour
     public int scoreValue = 10;
     public AudioClip deathClip;
 
+    // Enemy Manager reference
+    EnemyManager enemyManager;
 
     Animator anim;
     AudioSource enemyAudio;
@@ -25,6 +27,9 @@ public class EnemyHealth : MonoBehaviour
         capsuleCollider = GetComponent <CapsuleCollider> ();
 
         currentHealth = startingHealth;
+
+        // Get EnemyManager to be able to return enemies to respective pools
+        enemyManager = FindObjectOfType<EnemyManager>();
     }
 
 
@@ -66,6 +71,9 @@ public class EnemyHealth : MonoBehaviour
 
         enemyAudio.clip = deathClip;
         enemyAudio.Play ();
+
+        // Return enemy to pool
+        ReturnEnemy();
     }
 
 
@@ -75,6 +83,22 @@ public class EnemyHealth : MonoBehaviour
         GetComponent <Rigidbody> ().isKinematic = true;
         isSinking = true;
         ScoreManager.score += scoreValue;
-        Destroy (gameObject, 2f);
+        //Destroy (gameObject, 2f);
+    }
+
+    public void ReturnEnemy()
+    {
+        if (this.name.Contains("Zombunny"))
+        {
+            enemyManager.ReturnZombunny(this.gameObject);
+        }
+        else if (this.name.Contains("ZomBear"))
+        {
+            enemyManager.ReturnZombear(this.gameObject);
+        }
+        else if (this.name.Contains("Hellephant"))
+        {
+            enemyManager.ReturnHellephant(this.gameObject);
+        }
     }
 }
