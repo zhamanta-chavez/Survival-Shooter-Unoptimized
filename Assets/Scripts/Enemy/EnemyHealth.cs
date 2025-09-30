@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour
 {
@@ -8,15 +9,17 @@ public class EnemyHealth : MonoBehaviour
     public int scoreValue = 10;
     public AudioClip deathClip;
 
-    // Enemy Manager reference
-    EnemyManager enemyManager;
-
     Animator anim;
     AudioSource enemyAudio;
     ParticleSystem hitParticles;
     CapsuleCollider capsuleCollider;
     bool isDead;
     bool isSinking;
+
+    // More References
+    EnemyManager enemyManager;
+    UnityEngine.AI.NavMeshAgent navMeshAgent;
+    Rigidbody rb;
 
 
     void Awake ()
@@ -28,8 +31,21 @@ public class EnemyHealth : MonoBehaviour
 
         currentHealth = startingHealth;
 
-        // Get EnemyManager to be able to return enemies to respective pools
-        enemyManager = FindObjectOfType<EnemyManager>();
+        enemyManager = FindObjectOfType<EnemyManager>(); // Get EnemyManager to be able to return enemies to respective pools
+
+        // Get these components to be able to reset values when enemy dies
+        navMeshAgent = GetComponent<UnityEngine.AI.NavMeshAgent>();
+        rb = GetComponent<Rigidbody>();
+    }
+
+    private void OnEnable() // Will reset enemy state every time enemy is dequeued
+    {
+        currentHealth = startingHealth;
+        isDead = false;
+        isSinking = false;
+        capsuleCollider.isTrigger = false;
+        rb.isKinematic = false;
+        navMeshAgent.enabled = true;
     }
 
 
@@ -64,29 +80,29 @@ public class EnemyHealth : MonoBehaviour
     void Death ()
     {
         isDead = true;
-
         capsuleCollider.isTrigger = true;
-
         anim.SetTrigger ("Dead");
 
         enemyAudio.clip = deathClip;
         enemyAudio.Play ();
-
-        // Return enemy to pool
-        ReturnEnemy();
     }
 
 
     public void StartSinking ()
     {
-        GetComponent <UnityEngine.AI.NavMeshAgent> ().enabled = false;
-        GetComponent <Rigidbody> ().isKinematic = true;
+        /*GetComponent <UnityEngine.AI.NavMeshAgent> ().enabled = false;
+        GetComponent <Rigidbody> ().isKinematic = true;*/
+        navMeshAgent.enabled = false;
+        rb.isKinematic = true;
+
         isSinking = true;
         ScoreManager.score += scoreValue;
         //Destroy (gameObject, 2f);
+
+        StartCoroutine(WaitToReturn(sinkSpeed)); // Return enemy to pool when they die
     }
 
-    public void ReturnEnemy()
+    public void ReturnEnemy() // Return enemy to respective pool
     {
         if (this.name.Contains("Zombunny"))
         {
@@ -101,4 +117,12 @@ public class EnemyHealth : MonoBehaviour
             enemyManager.ReturnHellephant(this.gameObject);
         }
     }
+
+    IEnumerator WaitToReturn( float waitTime) // Will give time for the enemy's dead animation to play out
+    {
+        yield return new WaitForSeconds(waitTime);
+        ReturnEnemy();
+    }
 }
+
+

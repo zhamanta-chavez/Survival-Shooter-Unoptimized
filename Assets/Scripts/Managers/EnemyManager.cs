@@ -108,18 +108,21 @@ public class EnemyManager : MonoBehaviour
 
     public void ReturnZombunny(GameObject zombunnyPoolMember)
     {
+        zombunnyPoolMember.transform.position = spawnPoints[0].transform.position;
         zombunnyPool.Enqueue(zombunnyPoolMember);
         zombunnyPoolMember.SetActive(false);
     }
 
     public void ReturnZombear(GameObject zombearPoolMember)
     {
+        zombearPoolMember.transform.position = spawnPoints[1].transform.position;
         zombearPool.Enqueue(zombearPoolMember);
         zombearPoolMember.SetActive(false);
     }
 
     public void ReturnHellephant(GameObject hellephantPoolMember)
     {
+        hellephantPoolMember.transform.position = spawnPoints[2].transform.position;
         hellephantPool.Enqueue(hellephantPoolMember);
         hellephantPoolMember.SetActive(false);
     }
