@@ -123,6 +123,11 @@ public class EnemyHealth : MonoBehaviour
         yield return new WaitForSeconds(waitTime);
         ReturnEnemy();
     }
+
+    public void StartingHealth()
+    {
+
+    }
 }
 
 

@@ -3,8 +3,8 @@ using System.Collections;
 
 public class EnemyAttack : MonoBehaviour
 {
-    public float timeBetweenAttacks = 0.5f;
-    public int attackDamage = 10;
+    /*public float timeBetweenAttacks = 0.5f;
+    public int attackDamage = 10;*/
 
 
     Animator anim;
@@ -13,6 +13,8 @@ public class EnemyAttack : MonoBehaviour
     EnemyHealth enemyHealth;
     bool playerInRange;
     float timer;
+
+    Enemy_SO enemy; // Reference to enemy scriptable object
 
 
     void Awake ()
@@ -62,9 +64,30 @@ public class EnemyAttack : MonoBehaviour
     {
         timer = 0f;
 
-        if(playerHealth.currentHealth > 0)
+        /*if(playerHealth.currentHealth > 0)
         {
             playerHealth.TakeDamage (attackDamage);
+        }*/
+        if (this.name.Contains("Zombunny"))
+        {
+            if (playerHealth.currentHealth > 0)
+            {
+                playerHealth.TakeDamage(enemy.zombunnyAttackDamage);
+            }
+        }
+        else if (this.name.Contains("ZomBear"))
+        {
+            if (playerHealth.currentHealth > 0)
+            {
+                playerHealth.TakeDamage(enemy.zombearAttackDamage);
+            }
+        }
+        else if (this.name.Contains("Hellephant"))
+        {
+            if (playerHealth.currentHealth > 0)
+            {
+                playerHealth.TakeDamage(enemy.hellephantAttackDamage);
+            }
         }
     }
 }
