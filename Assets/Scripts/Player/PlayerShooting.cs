@@ -1,11 +1,11 @@
 ﻿using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerShooting : MonoBehaviour
 {
     public int damagePerShot = 20;
     public float timeBetweenBullets = 0.15f;
     public float range = 100f;
-
 
     float timer;
     Ray shootRay = new Ray();
@@ -17,6 +17,8 @@ public class PlayerShooting : MonoBehaviour
     Light gunLight;
     float effectsDisplayTime = 0.2f;
 
+    bool isShooting; // Used to assess held input
+
 
     void Awake ()
     {
@@ -27,12 +29,11 @@ public class PlayerShooting : MonoBehaviour
         gunLight = GetComponent<Light> ();
     }
 
-
     void Update ()
     {
         timer += Time.deltaTime;
 
-		if(Input.GetButton ("Fire1") && timer >= timeBetweenBullets && Time.timeScale != 0)
+		if(isShooting && timer >= timeBetweenBullets && Time.timeScale != 0)
         {
             Shoot ();
         }
@@ -43,6 +44,17 @@ public class PlayerShooting : MonoBehaviour
         }
     }
 
+    public void OnShoot(InputAction.CallbackContext context) // New input system (event based)
+    {
+        if (context.started)
+        {
+            isShooting = true;
+        }
+        else if (context.canceled)
+        {
+            isShooting = false;
+        }
+    }
 
     public void DisableEffects ()
     {

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class PlayerMovement : MonoBehaviour
 	private int floorMask;
 	private float camRayLength = 100f;
 
+	Vector2 inputVector; // Stores values for movement
+
 	void Awake()
 	{
 		floorMask = LayerMask.GetMask("Floor");
@@ -19,21 +22,28 @@ public class PlayerMovement : MonoBehaviour
 
 	void FixedUpdate()
 	{
-		float h = Input.GetAxisRaw("Horizontal");
-		float v = Input.GetAxisRaw("Vertical");
+		/*float h = Input.GetAxisRaw("Horizontal");
+		float v = Input.GetAxisRaw("Vertical");*/
 
-		Move(h, v);
+		Move(inputVector.x, inputVector.y);
 		Turning();
-		Animating(h, v);
+		Animating(inputVector.x, inputVector.y);
 	}
 
 	void Move(float h, float v)
 	{
+		Debug.Log(h + " " + v);
 		movement.Set(h, 0f, v);
 		movement = movement.normalized * speed * Time.deltaTime;
 
 		playerRigidbody.MovePosition(transform.position + movement);
 	}
+
+	public void OnMove(InputAction.CallbackContext context) // New input system (event based)
+	{
+		inputVector = context.ReadValue<Vector2>();
+    }
+
 
 	void Turning()
 	{
