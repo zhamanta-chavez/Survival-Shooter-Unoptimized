@@ -3,11 +3,13 @@ using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour
 {
-    public int startingHealth = 100;
+    [SerializeField] EnemyStats enemyStats; // Get veriables below from one source
+
+    /*public int startingHealth = 100;*/
     public int currentHealth;
-    public float sinkSpeed = 2.5f;
+    /*public float sinkSpeed = 2.5f;
     public int scoreValue = 10;
-    public AudioClip deathClip;
+    public AudioClip deathClip;*/
 
     Animator anim;
     AudioSource enemyAudio;
@@ -29,7 +31,7 @@ public class EnemyHealth : MonoBehaviour
         hitParticles = GetComponentInChildren <ParticleSystem> ();
         capsuleCollider = GetComponent <CapsuleCollider> ();
 
-        currentHealth = startingHealth;
+        currentHealth = enemyStats.startingHealth;
 
         enemyManager = FindObjectOfType<EnemyManager>(); // Get EnemyManager to be able to return enemies to respective pools
 
@@ -40,7 +42,7 @@ public class EnemyHealth : MonoBehaviour
 
     private void OnEnable() // Will reset enemy state every time enemy is dequeued
     {
-        currentHealth = startingHealth;
+        currentHealth = enemyStats.startingHealth;
         isDead = false;
         isSinking = false;
         capsuleCollider.isTrigger = false;
@@ -53,7 +55,7 @@ public class EnemyHealth : MonoBehaviour
     {
         if(isSinking)
         {
-            transform.Translate (-Vector3.up * sinkSpeed * Time.deltaTime);
+            transform.Translate (-Vector3.up * enemyStats.sinkSpeed * Time.deltaTime);
         }
     }
 
@@ -83,7 +85,7 @@ public class EnemyHealth : MonoBehaviour
         capsuleCollider.isTrigger = true;
         anim.SetTrigger ("Dead");
 
-        enemyAudio.clip = deathClip;
+        enemyAudio.clip = enemyStats.deathClip;
         enemyAudio.Play ();
     }
 
@@ -96,10 +98,10 @@ public class EnemyHealth : MonoBehaviour
         rb.isKinematic = true;
 
         isSinking = true;
-        ScoreManager.score += scoreValue;
+        ScoreManager.score += enemyStats.scoreValue;
         //Destroy (gameObject, 2f);
 
-        StartCoroutine(WaitToReturn(sinkSpeed)); // Return enemy to pool when they die
+        StartCoroutine(WaitToReturn(enemyStats.sinkSpeed)); // Return enemy to pool when they die
     }
 
     public void ReturnEnemy() // Return enemy to respective pool
@@ -122,11 +124,6 @@ public class EnemyHealth : MonoBehaviour
     {
         yield return new WaitForSeconds(waitTime);
         ReturnEnemy();
-    }
-
-    public void StartingHealth()
-    {
-
     }
 }
 

@@ -6,6 +6,7 @@ public class EnemyAttack : MonoBehaviour
     /*public float timeBetweenAttacks = 0.5f;
     public int attackDamage = 10;*/
 
+    [SerializeField] EnemyStats enemyStats; // Get timeBetweenAttacks and attackDamage from one source
 
     Animator anim;
     GameObject player;
@@ -13,8 +14,6 @@ public class EnemyAttack : MonoBehaviour
     EnemyHealth enemyHealth;
     bool playerInRange;
     float timer;
-
-    Enemy_SO enemy; // Reference to enemy scriptable object
 
 
     void Awake ()
@@ -48,7 +47,7 @@ public class EnemyAttack : MonoBehaviour
     {
         timer += Time.deltaTime;
 
-        if(timer >= timeBetweenAttacks && playerInRange && enemyHealth.currentHealth > 0)
+        if(timer >= enemyStats.timeBetweenAttacks && playerInRange && enemyHealth.currentHealth > 0) 
         {
             Attack ();
         }
@@ -64,30 +63,9 @@ public class EnemyAttack : MonoBehaviour
     {
         timer = 0f;
 
-        /*if(playerHealth.currentHealth > 0)
+        if(playerHealth.currentHealth > 0)
         {
-            playerHealth.TakeDamage (attackDamage);
-        }*/
-        if (this.name.Contains("Zombunny"))
-        {
-            if (playerHealth.currentHealth > 0)
-            {
-                playerHealth.TakeDamage(enemy.zombunnyAttackDamage);
-            }
-        }
-        else if (this.name.Contains("ZomBear"))
-        {
-            if (playerHealth.currentHealth > 0)
-            {
-                playerHealth.TakeDamage(enemy.zombearAttackDamage);
-            }
-        }
-        else if (this.name.Contains("Hellephant"))
-        {
-            if (playerHealth.currentHealth > 0)
-            {
-                playerHealth.TakeDamage(enemy.hellephantAttackDamage);
-            }
+            playerHealth.TakeDamage(enemyStats.attackDamage); 
         }
     }
 }
