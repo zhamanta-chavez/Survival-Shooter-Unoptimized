@@ -4,8 +4,7 @@ using UnityEngine.AI;
 
 public class EnemyMovement : MonoBehaviour
 {
-    // Created PlayerHealth player/EnemyHealth enemy here so that they are global
-    PlayerHealth playerHealth;
+    // Created EnemyHealth enemy here so that they are global
     Transform playerPosition;
     EnemyHealth enemy;
     NavMeshAgent navMesh;
@@ -14,7 +13,6 @@ public class EnemyMovement : MonoBehaviour
 
     private void Awake() // Preserves data even after SetActive(false)
     {
-        playerHealth = FindObjectOfType<PlayerHealth>();
         playerPosition = FindObjectOfType<PlayerMovement>().transform;
         enemy = GetComponent<EnemyHealth>();
         navMesh = GetComponent<NavMeshAgent>();

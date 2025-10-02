@@ -27,7 +27,7 @@ public class EnemyManager : MonoBehaviour
     void Start ()
     {
         // Create zombunny pool
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < 50; i++)
         {
             int spawnPointIndex = Random.Range(0, spawnPoints.Length);
 
@@ -37,7 +37,7 @@ public class EnemyManager : MonoBehaviour
         }
 
         // Create zombear pool
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < 50; i++)
         {
             int spawnPointIndex = Random.Range(0, spawnPoints.Length);
 
@@ -47,7 +47,7 @@ public class EnemyManager : MonoBehaviour
         }
 
         // Create hellephant pool
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < 50; i++)
         {
             int spawnPointIndex = Random.Range(0, spawnPoints.Length);
 

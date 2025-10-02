@@ -64,8 +64,8 @@ public class PlayerHealth : MonoBehaviour
 
         playerStats.currentHealth -= amount;
 
-        //healthSlider.value = currentHealth;
-        visualEvents.OnPlayerAttacked?.Invoke();
+        //healthSlider.value = currentHealth; // Handled by UI script
+        visualEvents.OnPlayerAttacked?.Invoke(); // Sets off visual
 
         playerAudio.Play ();
 

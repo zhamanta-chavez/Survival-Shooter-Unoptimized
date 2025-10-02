@@ -16,7 +16,7 @@ public class ScoreManager : MonoBehaviour
     }
 
 
-    // Will be dealt with by UI script
+    // Handled by UI script
     /*void Update ()
     {
         text.text = "Score: " + score;
