@@ -12,6 +12,7 @@ public class PlayerMovement : MonoBehaviour
 	private float camRayLength = 100f;
 
 	Vector2 inputVector; // Stores values for movement
+	int id_isWalking = Animator.StringToHash("IsWalking"); // Hashing for Animations
 
 	void Awake()
 	{
@@ -32,7 +33,6 @@ public class PlayerMovement : MonoBehaviour
 
 	void Move(float h, float v)
 	{
-		Debug.Log(h + " " + v);
 		movement.Set(h, 0f, v);
 		movement = movement.normalized * speed * Time.deltaTime;
 
@@ -63,6 +63,6 @@ public class PlayerMovement : MonoBehaviour
 	{
 		bool walking = h != 0f || v != 0f;
 
-		anim.SetBool("IsWalking", walking);
+		anim.SetBool(id_isWalking, walking); // Replaced string with int
 	}
 }

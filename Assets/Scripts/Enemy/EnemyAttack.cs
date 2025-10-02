@@ -15,6 +15,7 @@ public class EnemyAttack : MonoBehaviour
     bool playerInRange;
     float timer;
 
+    int id_playerDead = Animator.StringToHash("PlayerDead"); // Hashing for animations
 
     void Awake ()
     {
@@ -54,7 +55,7 @@ public class EnemyAttack : MonoBehaviour
 
         if(playerHealth.currentHealth <= 0)
         {
-            anim.SetTrigger ("PlayerDead");
+            anim.SetTrigger (id_playerDead); // Replaced string with int
         }
     }
 

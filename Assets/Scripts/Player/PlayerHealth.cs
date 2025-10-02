@@ -23,6 +23,8 @@ public class PlayerHealth : MonoBehaviour
     bool isDead;
     bool damaged;
 
+    int id_die = Animator.StringToHash("Die"); // Hashing for animations
+
 
     void Awake ()
     {
@@ -71,7 +73,7 @@ public class PlayerHealth : MonoBehaviour
 
         playerShooting.DisableEffects ();
 
-        anim.SetTrigger ("Die");
+        anim.SetTrigger (id_die); // Replaced string with int
 
         playerAudio.clip = deathClip;
         playerAudio.Play ();

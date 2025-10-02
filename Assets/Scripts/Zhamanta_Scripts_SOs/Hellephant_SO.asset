@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88aef5b7a9e8a81469402c506091b935, type: 3}
   m_Name: Hellephant_SO
   m_EditorClassIdentifier: 
+  enemyType: 2
   startingHealth: 300
   sinkSpeed: 2.5
   scoreValue: 30

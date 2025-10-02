@@ -23,6 +23,8 @@ public class EnemyHealth : MonoBehaviour
     UnityEngine.AI.NavMeshAgent navMeshAgent;
     Rigidbody rb;
 
+    int id_dead = Animator.StringToHash("Dead"); // Hashing for animations
+
 
     void Awake ()
     {
@@ -83,7 +85,7 @@ public class EnemyHealth : MonoBehaviour
     {
         isDead = true;
         capsuleCollider.isTrigger = true;
-        anim.SetTrigger ("Dead");
+        anim.SetTrigger (id_dead); // Replaced string with int
 
         enemyAudio.clip = enemyStats.deathClip;
         enemyAudio.Play ();
@@ -106,18 +108,7 @@ public class EnemyHealth : MonoBehaviour
 
     public void ReturnEnemy() // Return enemy to respective pool
     {
-        if (this.name.Contains("Zombunny"))
-        {
-            enemyManager.ReturnZombunny(this.gameObject);
-        }
-        else if (this.name.Contains("ZomBear"))
-        {
-            enemyManager.ReturnZombear(this.gameObject);
-        }
-        else if (this.name.Contains("Hellephant"))
-        {
-            enemyManager.ReturnHellephant(this.gameObject);
-        }
+        enemyManager.ReturnToPool(enemyStats.enemyType, this.gameObject);
     }
 
     IEnumerator WaitToReturn( float waitTime) // Will give time for the enemy's dead animation to play out

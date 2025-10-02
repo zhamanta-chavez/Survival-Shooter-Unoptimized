@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic; // Required for Queue
 using System.Collections;
+using System.Runtime.InteropServices.WindowsRuntime;
 
 public class EnemyManager : MonoBehaviour
 {
@@ -106,24 +107,25 @@ public class EnemyManager : MonoBehaviour
         }
     }
 
-    public void ReturnZombunny(GameObject zombunnyPoolMember)
+    public void ReturnToPool(int enemyType, GameObject poolMember)
     {
-        zombunnyPoolMember.transform.position = spawnPoints[0].transform.position;
-        zombunnyPool.Enqueue(zombunnyPoolMember);
-        zombunnyPoolMember.SetActive(false);
-    }
-
-    public void ReturnZombear(GameObject zombearPoolMember)
-    {
-        zombearPoolMember.transform.position = spawnPoints[1].transform.position;
-        zombearPool.Enqueue(zombearPoolMember);
-        zombearPoolMember.SetActive(false);
-    }
-
-    public void ReturnHellephant(GameObject hellephantPoolMember)
-    {
-        hellephantPoolMember.transform.position = spawnPoints[2].transform.position;
-        hellephantPool.Enqueue(hellephantPoolMember);
-        hellephantPoolMember.SetActive(false);
+        switch(enemyType)
+        {
+            case 0:
+                poolMember.transform.position = spawnPoints[0].transform.position;
+                zombunnyPool.Enqueue(poolMember);
+                poolMember.SetActive(false);
+                break;
+            case 1:
+                poolMember.transform.position = spawnPoints[1].transform.position;
+                zombearPool.Enqueue(poolMember);
+                poolMember.SetActive(false);
+                break;
+            case 2:
+                poolMember.transform.position = spawnPoints[2].transform.position;
+                hellephantPool.Enqueue(poolMember);
+                poolMember.SetActive(false);
+                break;
+        }
     }
 }
