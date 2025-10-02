@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class EnemyHealth : MonoBehaviour
 {
@@ -25,6 +26,7 @@ public class EnemyHealth : MonoBehaviour
 
     int id_dead = Animator.StringToHash("Dead"); // Hashing for animations
 
+    [SerializeField] UI_Events visualEvents; // Sets off visuals
 
     void Awake ()
     {
@@ -42,7 +44,7 @@ public class EnemyHealth : MonoBehaviour
         rb = GetComponent<Rigidbody>();
     }
 
-    private void OnEnable() // Will reset enemy state every time enemy is dequeued
+    private void OnEnable() // Resets enemy state every time enemy is dequeued
     {
         currentHealth = enemyStats.startingHealth;
         isDead = false;
@@ -81,7 +83,7 @@ public class EnemyHealth : MonoBehaviour
     }
 
 
-    void Death ()
+    public void Death ()
     {
         isDead = true;
         capsuleCollider.isTrigger = true;
@@ -101,6 +103,7 @@ public class EnemyHealth : MonoBehaviour
 
         isSinking = true;
         ScoreManager.score += enemyStats.scoreValue;
+        visualEvents.OnEnemyDied?.Invoke(); // Set off visual
         //Destroy (gameObject, 2f);
 
         StartCoroutine(WaitToReturn(enemyStats.sinkSpeed)); // Return enemy to pool when they die

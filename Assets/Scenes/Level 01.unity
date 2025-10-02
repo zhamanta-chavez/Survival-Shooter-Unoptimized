@@ -367,7 +367,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86e378bc199fbd343bceabbd3a16d73e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  text: {fileID: 2045715841}
 --- !u!4 &339976524
 Transform:
   m_ObjectHideFlags: 0
@@ -865,6 +864,7 @@ GameObject:
   - component: {fileID: 1114380157}
   - component: {fileID: 1114380159}
   - component: {fileID: 1114380158}
+  - component: {fileID: 1114380160}
   m_Layer: 5
   m_Name: HUDCanvas
   m_TagString: Untagged
@@ -984,6 +984,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerHealth: {fileID: 1299572197}
   restartDelay: 5
+  playerStats: {fileID: 11400000, guid: 0fdccee365d9dbb47a588162a0e58612, type: 2}
 --- !u!95 &1114380159
 Animator:
   serializedVersion: 4
@@ -1004,6 +1005,25 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1114380160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1114380152}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c897b921814044247bdd167d75cb38d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text: {fileID: 2045715841}
+  healthSlider: {fileID: 604563092}
+  damageImage: {fileID: 152261544}
+  flashSpeed: 5
+  flashColour: {r: 1, g: 0, b: 0, a: 0.1}
+  visualEvents: {fileID: 11400000, guid: 74decb9f6e7e7dd4baebee93e55c7974, type: 2}
+  playerStats: {fileID: 11400000, guid: 0fdccee365d9dbb47a588162a0e58612, type: 2}
 --- !u!1 &1135540767
 GameObject:
   m_ObjectHideFlags: 0
@@ -1295,9 +1315,21 @@ PrefabInstance:
       objectReference: {fileID: 152261544}
     - target: {fileID: 114762724205432510, guid: 9e3e72cd89ef44f97afe08f9baaabc18,
         type: 3}
+      propertyPath: playerStats
+      value: 
+      objectReference: {fileID: 11400000, guid: 0fdccee365d9dbb47a588162a0e58612,
+        type: 2}
+    - target: {fileID: 114762724205432510, guid: 9e3e72cd89ef44f97afe08f9baaabc18,
+        type: 3}
       propertyPath: healthSlider
       value: 
       objectReference: {fileID: 604563092}
+    - target: {fileID: 114762724205432510, guid: 9e3e72cd89ef44f97afe08f9baaabc18,
+        type: 3}
+      propertyPath: visualEvents
+      value: 
+      objectReference: {fileID: 11400000, guid: 74decb9f6e7e7dd4baebee93e55c7974,
+        type: 2}
     - target: {fileID: 199225940451065834, guid: 9e3e72cd89ef44f97afe08f9baaabc18,
         type: 3}
       propertyPath: m_Materials.Array.size

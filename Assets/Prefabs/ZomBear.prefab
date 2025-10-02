@@ -140,6 +140,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94f6618a0da65fa45b24d5105d5d8422, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerStats: {fileID: 11400000, guid: 0fdccee365d9dbb47a588162a0e58612, type: 2}
 --- !u!114 &114405961790049756
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -152,6 +153,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e15099f5ee559584089d5851df572def, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerStats: {fileID: 11400000, guid: 0fdccee365d9dbb47a588162a0e58612, type: 2}
   enemyStats: {fileID: 11400000, guid: 20c3932408631f24cbdc52cebb19a6c2, type: 2}
 --- !u!114 &114858573952562612
 MonoBehaviour:
@@ -167,6 +169,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyStats: {fileID: 11400000, guid: 20c3932408631f24cbdc52cebb19a6c2, type: 2}
   currentHealth: 0
+  visualEvents: {fileID: 11400000, guid: 74decb9f6e7e7dd4baebee93e55c7974, type: 2}
 --- !u!82 &82684988033110934
 AudioSource:
   m_ObjectHideFlags: 0

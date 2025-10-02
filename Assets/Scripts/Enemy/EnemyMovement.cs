@@ -10,6 +10,8 @@ public class EnemyMovement : MonoBehaviour
     EnemyHealth enemy;
     NavMeshAgent navMesh;
 
+    [SerializeField] PlayerStats playerStats; // Gets player's current health
+
     private void Awake() // Preserves data even after SetActive(false)
     {
         playerHealth = FindObjectOfType<PlayerHealth>();
@@ -34,7 +36,7 @@ public class EnemyMovement : MonoBehaviour
 
 
         // Accomplishes the same as the above, but GetComponent is done in Awake() once
-        if (enemy.currentHealth > 0 && playerHealth.currentHealth > 0)
+        if (enemy.currentHealth > 0 && playerStats.currentHealth > 0)
         {
             navMesh.SetDestination(playerPosition.position);
         }

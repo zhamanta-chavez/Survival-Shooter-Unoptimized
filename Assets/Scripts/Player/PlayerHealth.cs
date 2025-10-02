@@ -6,13 +6,18 @@ using UnityEngine.SceneManagement;
 
 public class PlayerHealth : MonoBehaviour
 {
-    public int startingHealth = 100;
-    public int currentHealth;
-    public Slider healthSlider;
-    public Image damageImage;
+    // Will obtain the below from PlayerStats instead
+
+    /*public int startingHealth = 100;
+    public int currentHealth;*/
+
+    // All UI elements will be dealt with by UI script
+
+    /*public Slider healthSlider;
+    public Image damageImage;*/
     public AudioClip deathClip;
-    public float flashSpeed = 5f;
-    public Color flashColour = new Color(1f, 0f, 0f, 0.1f);
+    /*public float flashSpeed = 5f;
+    public Color flashColour = new Color(1f, 0f, 0f, 0.1f);*/
 
 
 
@@ -21,9 +26,12 @@ public class PlayerHealth : MonoBehaviour
     PlayerMovement playerMovement;
     PlayerShooting playerShooting;
     bool isDead;
-    bool damaged;
+    //bool damaged;
 
     int id_die = Animator.StringToHash("Die"); // Hashing for animations
+
+    [SerializeField] PlayerStats playerStats; // Obstains current/startingHealth from here
+    [SerializeField] UI_Events visualEvents; // Sets off visuals
 
 
     void Awake ()
@@ -32,11 +40,11 @@ public class PlayerHealth : MonoBehaviour
         playerAudio = GetComponent <AudioSource> ();
         playerMovement = GetComponent <PlayerMovement> ();
         playerShooting = GetComponentInChildren <PlayerShooting> ();
-        currentHealth = startingHealth;
+        playerStats.currentHealth = playerStats.startingHealth;
     }
 
-
-    void Update ()
+    //Handled by UI script
+    /*void Update ()
     {
         if(damaged)
         {
@@ -47,20 +55,21 @@ public class PlayerHealth : MonoBehaviour
             damageImage.color = Color.Lerp (damageImage.color, Color.clear, flashSpeed * Time.deltaTime);
         }
         damaged = false;
-    }
+    }*/
 
 
     public void TakeDamage (int amount)
     {
-        damaged = true;
+        playerStats.damaged = true;
 
-        currentHealth -= amount;
+        playerStats.currentHealth -= amount;
 
-        healthSlider.value = currentHealth;
+        //healthSlider.value = currentHealth;
+        visualEvents.OnPlayerAttacked?.Invoke();
 
         playerAudio.Play ();
 
-        if(currentHealth <= 0 && !isDead)
+        if(playerStats.currentHealth <= 0 && !isDead)
         {
             Death ();
         }

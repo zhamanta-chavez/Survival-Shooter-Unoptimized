@@ -1,11 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.Events;
 
 public class EnemyAttack : MonoBehaviour
 {
     /*public float timeBetweenAttacks = 0.5f;
     public int attackDamage = 10;*/
 
+    [SerializeField] PlayerStats playerStats; // Get player's currentHealth from here
     [SerializeField] EnemyStats enemyStats; // Get timeBetweenAttacks and attackDamage from one source
 
     Animator anim;
@@ -16,6 +18,7 @@ public class EnemyAttack : MonoBehaviour
     float timer;
 
     int id_playerDead = Animator.StringToHash("PlayerDead"); // Hashing for animations
+
 
     void Awake ()
     {
@@ -53,7 +56,7 @@ public class EnemyAttack : MonoBehaviour
             Attack ();
         }
 
-        if(playerHealth.currentHealth <= 0)
+        if(playerStats.currentHealth <= 0)
         {
             anim.SetTrigger (id_playerDead); // Replaced string with int
         }
@@ -64,7 +67,7 @@ public class EnemyAttack : MonoBehaviour
     {
         timer = 0f;
 
-        if(playerHealth.currentHealth > 0)
+        if(playerStats.currentHealth > 0)
         {
             playerHealth.TakeDamage(enemyStats.attackDamage); 
         }

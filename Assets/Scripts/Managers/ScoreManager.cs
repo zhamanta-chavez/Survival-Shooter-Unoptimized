@@ -7,7 +7,7 @@ public class ScoreManager : MonoBehaviour
     public static int score;
 
 
-    [SerializeField] Text text;
+    /*[SerializeField] Text text;*/
 
 
     void Awake ()
@@ -16,8 +16,9 @@ public class ScoreManager : MonoBehaviour
     }
 
 
-    void Update ()
+    // Will be dealt with by UI script
+    /*void Update ()
     {
         text.text = "Score: " + score;
-    }
+    }*/
 }
